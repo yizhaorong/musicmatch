@@ -1,0 +1,30 @@
+name: Build Windows Application
+
+on:
+  push:
+    branches:
+      - main # 当您向 main 分支推送时触发工作流
+
+jobs:
+  build:
+    runs-on: windows-latest # 选择 Windows 环境
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 # 检出代码
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "latest" # 可选择特定版本，例如 '2.10.0'
+
+      - name: Install dependencies
+        run: flutter pub get # 安装依赖
+
+      - name: Build Windows application
+        run: flutter build windows # 构建 Windows 应用
+
+      - name: Archive the Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-build
+          path: build/windows/runner/Release # 上传构建生成的文件
