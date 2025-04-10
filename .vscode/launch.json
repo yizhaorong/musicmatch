@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "musicmatch",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart", // 指向您的主 Dart 文件
+            "flutterMode": "debug", // 设置为调试模式
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "deviceId": "macos" // 强制使用 macOS 作为调试设备
+        },
+        {
+            "name": "musicmatch (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "profile",
+            "deviceId": "macos"
+        },
+        {
+            "name": "musicmatch (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "release",
+            "deviceId": "macos"
+        }
+    ]
+}
+
