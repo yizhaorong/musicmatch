@@ -15,7 +15,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "latest"
+          flutter-version: 'latest'
 
       - name: Install dependencies
         run: flutter pub get
@@ -24,10 +24,10 @@ jobs:
         run: flutter build windows
 
       - name: List files
-        run: dir build/windows/runner/Release # 列出文件，验证构建输出
+        run: dir build/windows/runner/Release  # 确认文件是否存在
 
       - name: Archive the Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2  # 使用具体的版本
         with:
           name: windows-build
           path: build/windows/runner/Release
