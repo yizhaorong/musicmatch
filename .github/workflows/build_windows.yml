@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # 升级到最新版本 v3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -24,10 +24,10 @@ jobs:
         run: flutter build windows
 
       - name: List files
-        run: dir build/windows/runner/Release  # 确认文件是否存在
+        run: dir build/windows/runner/Release
 
       - name: Archive the Build
-        uses: actions/upload-artifact@v2.2.4  # 或者直接用最新：v3
+        uses: actions/upload-artifact@v3  # 使用最新版本 v3
         with:
           name: windows-build
           path: build/windows/runner/Release
