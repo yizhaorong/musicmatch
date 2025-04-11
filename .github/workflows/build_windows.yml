@@ -27,7 +27,7 @@ jobs:
         run: dir build/windows/runner/Release
 
       - name: Archive the Build
-        uses: actions/upload-artifact@v3  # 使用最新版本 v3
+        uses: actions/upload-artifact@v4  # 使用最新版本 v3
         with:
           name: windows-build
           path: build/windows/runner/Release
