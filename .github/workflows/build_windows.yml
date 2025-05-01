@@ -10,25 +10,45 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3 # 升级到最新版本 v3
+        uses: actions/checkout@v3
+
+      # 添加Windows构建依赖
+      - name: Install Visual Studio components
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+          toolset: 14.3  # VS 2022工具链
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"
+          channel: stable
+
       - run: flutter --version
 
+      # 修复依赖安装
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          flutter config --enable-windows-desktop
 
+      # 添加详细构建日志
       - name: Build Windows application
-        run: flutter build windows
+        run: flutter build windows --release -v  # -v输出详细日志[6](@ref)
+
+      # 验证路径是否存在
+      - name: Verify build output
+        run: |
+          if not exist "build/windows/runner/Release" (
+            echo "Build failed: Release directory not found"
+            exit 1
+          )
 
       - name: List files
         run: dir build/windows/runner/Release
 
       - name: Archive the Build
-        uses: actions/upload-artifact@v4 # 使用最新版本 v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-build
           path: build/windows/runner/Release
