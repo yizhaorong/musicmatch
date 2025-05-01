@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:musicmatch/models/cloud_file.dart';
@@ -20,21 +21,23 @@ class SongService {
         cookie: UserService().cookies,
       );
       if (response != null && response.data != null) {
+        Map<String, dynamic> jsonData = HashMap();
         if (response.data is String) {
           // 解析JSON
-          Map<String, dynamic> jsonData = json.decode(response.data);
-          if (jsonData['code']?.toString() == '200' &&
-              jsonData['data'] != null) {
-            final data = jsonData['data'] as List<dynamic>;
-            final total = jsonData['count'] as int;
-            final songList =
-                data.map((songData) => CloudFile.fromMap(songData)).toList();
-            songs.addAll(songList);
-            return {'songs': songs, 'total': total};
-          }
-        } else {
-          return {'songs': songs, 'total': 0};
+          jsonData = json.decode(response.data);
+        } else if (response.data is Map<String, dynamic>) {
+          jsonData = response.data;
         }
+        if (jsonData['code']?.toString() == '200' && jsonData['data'] != null) {
+          final data = jsonData['data'] as List<dynamic>;
+          final total = jsonData['count'] as int;
+          final songList =
+              data.map((songData) => CloudFile.fromMap(songData)).toList();
+          songs.addAll(songList);
+          return {'songs': songs, 'total': total};
+        }
+      } else {
+        return {'songs': songs, 'total': 0};
       }
     } catch (e) {
       LoggerService.d(e.toString());
@@ -53,14 +56,17 @@ class SongService {
           cookie: UserService().cookies,
         );
         if (response != null && response.data != null) {
+          Map<String, dynamic> jsonData = HashMap();
           if (response.data is String) {
             // 解析JSON
-            Map<String, dynamic> jsonData = json.decode(response.data);
-            if (jsonData['code']?.toString() == '200' &&
-                jsonData['songs'] != null &&
-                jsonData['songs'].isNotEmpty) {
-              return 1;
-            }
+            jsonData = json.decode(response.data);
+          } else if (response.data is Map<String, dynamic>) {
+            jsonData = response.data;
+          }
+          if (jsonData['code']?.toString() == '200' &&
+              jsonData['songs'] != null &&
+              jsonData['songs'].isNotEmpty) {
+            return 1;
           }
         }
         return 0;
@@ -80,14 +86,17 @@ class SongService {
         cookie: UserService().cookies,
       );
       if (response != null && response.data != null) {
+        Map<String, dynamic> jsonData = HashMap();
         if (response.data is String) {
           // 解析JSON
-          Map<String, dynamic> jsonData = json.decode(response.data);
-          if (jsonData['code']?.toString() == '200' &&
-              jsonData['data'] != null &&
-              jsonData['data'].isNotEmpty) {
-            return true;
-          }
+          jsonData = json.decode(response.data);
+        } else if (response.data is Map<String, dynamic>) {
+          jsonData = response.data;
+        }
+        if (jsonData['code']?.toString() == '200' &&
+            jsonData['data'] != null &&
+            jsonData['data'].isNotEmpty) {
+          return true;
         }
       }
       return false; // 返回 false，表示错误发生
@@ -125,16 +134,19 @@ class SongService {
             cookie: UserService().cookies,
           );
           if (response != null && response.data != null) {
+            Map<String, dynamic> jsonData = HashMap();
             if (response.data is String) {
               // 解析JSON
-              Map<String, dynamic> jsonData = json.decode(response.data);
-              if (jsonData['code']?.toString() == '200') {
-                LoggerService.d("匹配纠正成功！");
-                return "匹配纠正成功！";
-              } else {
-                LoggerService.d("匹配纠正失败！");
-                return "匹配纠正失败！";
-              }
+              jsonData = json.decode(response.data);
+            } else if (response.data is Map<String, dynamic>) {
+              jsonData = response.data;
+            }
+            if (jsonData['code']?.toString() == '200') {
+              LoggerService.d("匹配纠正成功！");
+              return "匹配纠正成功！";
+            } else {
+              LoggerService.d("匹配纠正失败！");
+              return "匹配纠正失败！";
             }
           }
         } else if (songStatus == 0) {
@@ -167,19 +179,22 @@ class SongService {
         cookie: UserService().cookies,
       );
       if (response != null && response.data != null) {
+        Map<String, dynamic> jsonData = HashMap();
         if (response.data is String) {
           // 解析JSON
-          Map<String, dynamic> jsonData = json.decode(response.data);
-          if (jsonData['code']?.toString() == '200' &&
-              jsonData['result'] != null &&
-              jsonData['result']['songs'] != null &&
-              jsonData['result']['songs'].isNotEmpty) {
-            final data = jsonData['result']['songs'] as List<dynamic>;
-            final songList =
-                data.map((songData) => Song.fromMap(songData)).toList();
-            songs.addAll(songList);
-            return songs;
-          }
+          jsonData = json.decode(response.data);
+        } else if (response.data is Map<String, dynamic>) {
+          jsonData = response.data;
+        }
+        if (jsonData['code']?.toString() == '200' &&
+            jsonData['result'] != null &&
+            jsonData['result']['songs'] != null &&
+            jsonData['result']['songs'].isNotEmpty) {
+          final data = jsonData['result']['songs'] as List<dynamic>;
+          final songList =
+              data.map((songData) => Song.fromMap(songData)).toList();
+          songs.addAll(songList);
+          return songs;
         }
       }
     } catch (e) {
