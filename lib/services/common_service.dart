@@ -34,7 +34,7 @@ class CommonService {
 
     // 如果小时和分钟都为 0，只显示秒
     if (hours == 0 && minutes == 0) {
-      return '${seconds.toString().padLeft(2, '0')}';
+      return seconds.toString().padLeft(2, '0');
     } else if (hours > 0) {
       // 如果小时大于 0，返回 HH:mm:ss 格式
       return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';

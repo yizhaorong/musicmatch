@@ -6,7 +6,6 @@ import 'package:musicmatch/models/song.dart';
 import 'package:musicmatch/services/http_service.dart';
 import 'package:musicmatch/services/logger_service.dart';
 import 'package:musicmatch/services/user_service.dart';
-import 'package:string_similarity/string_similarity.dart';
 import 'package:path/path.dart' as p;
 
 class SongService {

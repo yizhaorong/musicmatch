@@ -13,6 +13,8 @@ import 'package:musicmatch/views/widgets/music_search_bar.dart';
 import 'package:musicmatch/views/widgets/song_list_item.dart';
 
 class SongListPage extends StatefulWidget {
+  const SongListPage({super.key});
+
   @override
   _SongListPageState createState() => _SongListPageState();
 }

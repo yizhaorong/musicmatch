@@ -7,8 +7,7 @@ class SongListItem extends StatelessWidget {
   final int index;
   final CloudFile song;
 
-  const SongListItem({Key? key, required this.index, required this.song})
-    : super(key: key);
+  const SongListItem({super.key, required this.index, required this.song});
 
   @override
   Widget build(BuildContext context) {

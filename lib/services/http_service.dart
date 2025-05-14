@@ -14,9 +14,9 @@ class HttpService {
       final options = http.Options(
         headers: {
           'Cookie': cookie ?? '',
-          'x-from-src': _randomIp(),
-          'X-Real-IP': _randomIp(),
-          'X-Forwarded-For': _randomIp(),
+          // 'x-from-src': _randomIp(),
+          // 'X-Real-IP': _randomIp(),
+          // 'X-Forwarded-For': _randomIp(),
         },
         contentType: 'application/json;charset=UTF-8',
       );

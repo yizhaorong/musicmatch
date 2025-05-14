@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:dio/dio.dart' as http;
 
 class HttpHelper {
   /// 根据相传入的数据，得到相应页面数据

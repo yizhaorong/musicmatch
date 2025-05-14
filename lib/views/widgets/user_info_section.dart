@@ -10,12 +10,12 @@ class UserInfoSection extends StatelessWidget {
   final VoidCallback onLogout;
 
   const UserInfoSection({
-    Key? key,
+    super.key,
     required this.user,
     required this.cloudInfo,
     required this.onRefresh,
     required this.onLogout,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class UserInfoSection extends StatelessWidget {
             child:
                 user?.avatarUrl != null
                     ? Image.network(
-                      user!.avatarUrl!,
+                      user!.avatarUrl,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Icon(Icons.person, size: 60);
@@ -46,7 +46,7 @@ class UserInfoSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    ElevatedButton(onPressed: onLogout, child: Text('重新扫描登录')),
+                    ElevatedButton(onPressed: onLogout, child: Text('退出登录')),
                     SizedBox(width: 8),
                     Text('UID: ${user?.userId ?? ''}'),
                     SizedBox(width: 8),
@@ -56,7 +56,7 @@ class UserInfoSection extends StatelessWidget {
                 SizedBox(height: 16),
                 Row(
                   children: [
-                    ElevatedButton(onPressed: onRefresh, child: Text('刷新音乐网盘')),
+                    ElevatedButton(onPressed: onRefresh, child: Text('刷新网盘')),
                     SizedBox(width: 8),
                     Text(
                       '音乐云盘容量: ${CommonService.getFileSize(double.parse(cloudInfo?.size ?? '0'))} / ${CommonService.getFileSize(double.parse(cloudInfo?.maxSize ?? '0'))}',

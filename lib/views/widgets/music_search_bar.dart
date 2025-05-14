@@ -7,11 +7,11 @@ class MusicSearchBar extends StatelessWidget {
   final ValueChanged<String> onSearchKeywordChanged;
 
   const MusicSearchBar({
-    Key? key,
+    super.key,
     required this.searchKeyword,
     required this.onSearch,
     required this.onSearchKeywordChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
