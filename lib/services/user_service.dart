@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:musicmatch/models/cloud_info.dart';
@@ -75,13 +76,16 @@ class UserService {
       final apiUrl = 'https://music.163.com/api/v1/cloud/get?limit=0';
       var response = await HttpService.getHtml(apiUrl, cookie: cookies);
       if (response != null && response.data != null) {
+        Map<String, dynamic> jsonData = HashMap();
         if (response.data is String) {
           // 解析JSON
-          Map<String, dynamic> jsonData = json.decode(response.data);
-          if (jsonData['code']?.toString() == '200') {
-            cloudInfo = CloudInfo.fromJson(jsonData);
-            return cloudInfo;
-          }
+          jsonData = json.decode(response.data);
+        } else if (response.data is Map<String, dynamic>) {
+          jsonData = response.data;
+        }
+        if (jsonData['code']?.toString() == '200') {
+          cloudInfo = CloudInfo.fromJson(jsonData);
+          return cloudInfo;
         }
       }
     } catch (e) {
